@@ -1,0 +1,29 @@
+---
+title: "Basics of Data visualization"
+author: "Ugyen Norbu"
+output: html_document
+---
+
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(socviz)
+library(gapminder)
+
+gapminder %>% 
+    ggplot(aes(x = gdpPercap, y = lifeExp)) +
+    geom_point(alpha = 0.15) +
+    geom_smooth(color = "orange", method = "lm") +
+    scale_x_log10(labels= scales::comma)
+
+```
+
+
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+gapminder %>% 
+    ggplot(aes(x = gdpPercap, y = lifeExp, color = continent,
+               fill = continent)) +
+    geom_point(alpha = 0.25) +
+    geom_smooth(method = "loess") +
+    scale_x_log10(labels= scales::comma)
+```
+
