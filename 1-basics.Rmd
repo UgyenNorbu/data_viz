@@ -47,3 +47,65 @@ gss_sm %>%
   geom_smooth(method = "loess", se = FALSE, color = c("#EE9A00"))
 ```
 
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+gss_sm %>% 
+  ggplot(aes(x = bigregion)) +
+  geom_bar(aes(y = ..prop.., group = 1))
+```
+```{r}
+table(gss_sm$religion) 
+
+gss_sm%>% 
+  ggplot(aes(x =bigregion, fill = religion))+
+  geom_bar(position = "fill") +
+  guides(fill = FALSE)
+
+```
+```{r}
+gss_sm%>% 
+  ggplot(aes(x =bigregion, fill = religion))+
+  geom_bar(position = "dodge", aes(y = ..prop.., group = religion))
+```
+```{r}
+midwest %>% 
+  ggplot(aes(x = area)) +
+  geom_histogram(bins = 20) +
+  geom_density()
+```
+```{r warning=FALSE}
+oecd_sum %>% 
+  ggplot(aes(x = year, y= diff, fill = hi_lo)) +
+  geom_bar(stat = "identity") +
+  guides(fill = FALSE)
+```
+
+```{r error=FALSE, warning=FALSE, echo=FALSE}
+rel_by_region <- gss_sm %>% 
+  group_by(bigregion, religion) %>% 
+  summarise(N = n()) %>% 
+  mutate(freq = N/sum(N), per = round(freq*100, 0))
+
+rel_by_region %>% 
+  ggplot(aes(x = bigregion, y = per, fill = religion)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(facets = "religion") +
+  coord_flip()+
+  guides(fill = FALSE)
+```
+```{r}
+organdata %>% 
+  select(1:6) %>% 
+  sample_n(size = 10)
+
+organdata %>% 
+  ggplot(aes(x = year, y = donors))+
+  geom_line(aes(group = country))+
+  facet_wrap(facets = "country")
+
+organdata %>% 
+  ggplot(aes(x = reorder(country, -donors, na.rm = TRUE),
+             y = donors))+
+  geom_boxplot()+
+  coord_flip()
+```
+
