@@ -92,7 +92,7 @@ rel_by_region %>%
   coord_flip()+
   guides(fill = FALSE)
 ```
-```{r}
+```{r error=FALSE, warning=FALSE, echo=FALSE}
 organdata %>% 
   select(1:6) %>% 
   sample_n(size = 10)
@@ -107,5 +107,27 @@ organdata %>%
              y = donors))+
   geom_boxplot()+
   coord_flip()
+```
+```{r error=FALSE, warning=FALSE, echo=FALSE}
+by_country <- organdata %>% 
+  group_by(consent_law, country) %>% 
+  summarise_if(is.numeric, list(avg = mean, sd = sd), na.rm = TRUE) %>%
+  ungroup()
+
+by_country %>% 
+  ggplot(aes(x = donors_avg, y = reorder(country, donors_avg)))+
+  geom_point(aes(color = consent_law))+
+  facet_wrap(facet = "consent_law", scales = "free_y", ncol = 1)+
+  guides(color = FALSE)
+```
+```{r error=FALSE, warning=FALSE, echo=FALSE}
+by_country %>% 
+  ggplot(aes(x = reorder(country, -donors_avg), y = donors_avg)) +
+  geom_pointrange(aes(ymin = donors_avg - donors_sd, 
+                      ymax = donors_avg + donors_sd))+
+  coord_flip()
+```
+```{r error=FALSE, warning=FALSE, echo=FALSE}
+
 ```
 
