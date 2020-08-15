@@ -128,6 +128,25 @@ by_country %>%
   coord_flip()
 ```
 ```{r error=FALSE, warning=FALSE, echo=FALSE}
+library(ggrepel)
+
+elections_historic %>% 
+  ggplot(aes(x = popular_pct, y = ec_pct, label = winner_label))+
+  geom_vline(xintercept = 0.5)+
+  geom_hline(yintercept = 0.5)+
+  geom_point() +
+  geom_text_repel()+
+  scale_x_continuous(labels = scales::percent)+
+  scale_y_continuous(labels = scales::percent)
+```
+```{r error=FALSE, warning=FALSE, echo=FALSE}
+by_country %>% 
+  ggplot(aes(x = gdp_avg, y = health_avg))+
+  geom_point()+
+  geom_text_repel(data = subset(by_country, gdp_avg >25000|country %in% ("Belgium")), aes(label = country))
+```
+
+```{r error=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 
