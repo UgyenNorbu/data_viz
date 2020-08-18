@@ -30,8 +30,7 @@ gapminder %>%
     scale_x_log10(labels= scales::comma)
 
 ggsave("output_fig/gdp_lifeexp_2.jpg")
-```
-```{r warning=FALSE, echo=FALSE, message=FALSE}
+
 gapminder %>% 
   ggplot(aes(x = year, y = gdpPercap)) +
   geom_line(aes(group = country), color ="#BDBDBD") +
@@ -52,27 +51,26 @@ gss_sm %>%
   ggplot(aes(x = bigregion)) +
   geom_bar(aes(y = ..prop.., group = 1))
 ```
-```{r}
-table(gss_sm$religion) 
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+table(gss_sm$religion)
 
 gss_sm%>% 
   ggplot(aes(x =bigregion, fill = religion))+
   geom_bar(position = "fill") +
   guides(fill = FALSE)
-
 ```
-```{r}
-gss_sm%>% 
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+gss_sm %>%
   ggplot(aes(x =bigregion, fill = religion))+
   geom_bar(position = "dodge", aes(y = ..prop.., group = religion))
 ```
-```{r}
+```{r warning=FALSE, echo=FALSE, message=FALSE}
 midwest %>% 
   ggplot(aes(x = area)) +
   geom_histogram(bins = 20) +
   geom_density()
 ```
-```{r warning=FALSE}
+```{r warning=FALSE, echo=FALSE, message=FALSE}
 oecd_sum %>% 
   ggplot(aes(x = year, y= diff, fill = hi_lo)) +
   geom_bar(stat = "identity") +
@@ -84,7 +82,9 @@ rel_by_region <- gss_sm %>%
   group_by(bigregion, religion) %>% 
   summarise(N = n()) %>% 
   mutate(freq = N/sum(N), per = round(freq*100, 0))
+```
 
+```{r error=FALSE, warning=FALSE, echo=FALSE}
 rel_by_region %>% 
   ggplot(aes(x = bigregion, y = per, fill = religion)) +
   geom_bar(stat = "identity", position = "dodge") +
@@ -102,6 +102,9 @@ organdata %>%
   geom_line(aes(group = country))+
   facet_wrap(facets = "country")
 
+```
+
+```{r error=FALSE, warning=FALSE, echo=FALSE}
 organdata %>% 
   ggplot(aes(x = reorder(country, -donors, na.rm = TRUE),
              y = donors))+
