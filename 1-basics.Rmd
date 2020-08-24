@@ -2,8 +2,8 @@
 title: "Basics of Data visualization"
 author: "Ugyen Norbu"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r fig.width = 5, fig.height = 3.5, warning=FALSE, echo=FALSE, message=FALSE}
@@ -149,6 +149,26 @@ by_country %>%
   geom_text_repel(data = subset(by_country, gdp_avg >25000|country %in% ("Belgium")), aes(label = country))
 ```
 
+```{r error=FALSE, warning=FALSE, echo=FALSE}
+organdata
+organdata %>% 
+  ggplot(aes(x = roads, y = donors)) +
+  geom_point() +
+  annotate(geom = "text", x = 100, y = 30,
+           label = "A surprisingly high \n recovery rate.", 
+           hjust = 0)
+```
+```{r error=FALSE, warning=FALSE, echo=FALSE}
+organdata %>% 
+  ggplot(aes(x = roads, y = donors)) +
+  geom_point() +
+  xlim(0, 300) +
+  annotate(geom = "rect", xmin = 40, xmax = 130,
+           ymin = 27, ymax = 33, alpha = 0.5, fill = c("#B0E2FF"))+
+  annotate(geom = "text", x = 50, y = 30,
+           label = "A surprisingly high \n recovery rate.", color = c("#1874CD"),
+           hjust = 0)
+```
 ```{r error=FALSE, warning=FALSE, echo=FALSE}
 
 ```
