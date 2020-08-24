@@ -2,8 +2,8 @@
 title: "Basics of Data visualization"
 author: "Ugyen Norbu"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r fig.width = 5, fig.height = 3.5, warning=FALSE, echo=FALSE, message=FALSE}
@@ -170,6 +170,21 @@ organdata %>%
            hjust = 0)
 ```
 ```{r error=FALSE, warning=FALSE, echo=FALSE}
+library(hrbrthemes)
 
+organdata %>% 
+  ggplot(aes(x = roads, y = donors, color = world)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_continuous(breaks = c(10, 20, 30),
+                     labels = c("Ten", "Twenty", "Thirty")) +
+  guides(color = "none") +
+  theme_ipsum()
+  
 ```
-
+```{r error=FALSE, warning=FALSE, echo=FALSE}
+organdata %>% 
+  ggplot(aes(x = roads, y = donors, color = world)) +
+  geom_point() +
+  theme(legend.position = "top")
+```
