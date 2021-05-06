@@ -37,11 +37,5 @@ gapminder %>%
     scale_fill_manual(name = "Models", values = mod_color) + 
     theme(legend.position = "top")
 
-    
-    
-    
-    
-    
-    
-    
+out <- lm(formula = lifeExp ~ gdpPercap + pop + continent, data = gapminder)
 
